@@ -1,0 +1,30 @@
+int max_dist(const vector<int>& data, size_t& start, size_t& end)
+{
+    size_t min = 0;
+    size_t max = 0;
+    start = end = 0;
+    if (data.size() == 0)
+    {
+        return 0;
+    }
+    for (size_t i = 1; i < data.size(); ++i)
+    {
+        if (data[i] < data[min])
+        {
+            // max need to be after the min
+            min = max = i;
+        }
+        if (data[i] > data[max])
+        {
+            max = i;
+            if (data[max] - data[min] > data[end] - data[start])
+            {
+                // found new biggest distance
+                start = min;
+                end = max;
+            }
+        }
+    }
+    return data[end] - data[start];
+}
+
