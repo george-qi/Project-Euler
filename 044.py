@@ -15,4 +15,19 @@ and difference is pentagonal and D = |P[k] - P[j]| is minimised; what is
 the value of D?
 """
 
+size = 10000
+pent = [i*(3*i-1)/2 for i in xrange(1, size)]
+t = dict.fromkeys(pent, 1)
+found = False
+
+for idx in xrange(size): 
+	for idy in xrange(idx, 0, -1):
+		d = pent[idx] - pent[idy]
+		s = pent[idx] + pent[idy]
+		if d in t and s in t: 
+			found = True
+			print pent[idx] - pent[idy]
+	if found:
+		break
+				
 
