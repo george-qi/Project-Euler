@@ -10,10 +10,12 @@ def prime_list(min, max):
 	if min == 2: return [2] + [i for i in xrange(3,max,2) if sieve[i]]
 	return [i for i in xrange(min,max,2) if sieve[i] and i > min]
 
-# AKS 
+# AKS, http://stackoverflow.com/questions/1801391/what-is-the-best-algorithm-for-checking-if-a-number-is-prime
 def is_prime(n):
 	if n == 2: return True
 	if n == 3: return True
+	if n%2 == 0: return False
+	if n%3 == 0: return False
 	p, w = 5, 2
 	while p * p <= n:
 		if n % p == 0: return False
