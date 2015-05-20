@@ -30,4 +30,78 @@ heptagonal, and octagonal, is represented by a different number in the
 set.
 """
 
+import math
+
+def is_triangle(n):
+    return (-1 + math.sqrt(1 + (8 * n))) % 2 == 0
+
+def is_square(n):
+    return int(math.sqrt(n)) == math.sqrt(n)
+
+def is_pentagonal(n):
+    return (1 + math.sqrt(1 + (24 * n))) % 6 == 0
+
+def is_hexagonal(n):
+    return (1 + math.sqrt(1 + (8 * n))) % 4 == 0
+
+def is_heptagonal(n):
+    return (3 + math.sqrt(9 + (40 * n))) % 10 == 0
+
+def is_octagonal(n):
+    return (2 + math.sqrt(4 + (12 * n))) % 6 == 0
+
+types = range(3,9)
+d = {3:[], 4:[], 5:[], 6:[], 7:[], 8:[]}
+for i in xrange(1000, 10000):
+	# if is_hexagonal(i): print i
+	if is_triangle(i): d[3].append(i)
+	if is_square(i): d[4].append(i)
+	if is_pentagonal(i): d[5].append(i)
+	if is_hexagonal(i): d[6].append(i)
+	if is_heptagonal(i): d[7].append(i)
+	if is_octagonal(i): d[8].append(i)
+
+def get_group(d, nums, last, types):
+	if len(types) > 0:
+		if last == "-1":
+			for n in d[3]:
+				suffix = str(n)[2:]
+				get_group(d, nums+[n], suffix, types[1:])
+		else:	
+			for i, t in enumerate(types):
+				for n in d[t]:
+					suffix, prefix = str(n)[2:], str(n)[:2]
+					if prefix == last and n not in nums:
+						get_group(d, nums+[n], suffix, types[:i] + types[i+1:])
+	else: 
+		if str(nums[5])[2:] == str(nums[0])[:2]:
+			print sum(nums)
+			return 
+
+get_group(d, [], "-1", types)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
